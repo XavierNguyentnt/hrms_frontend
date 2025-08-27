@@ -1,4 +1,4 @@
-import axios_instance from "../util/axios_instance";
+import axiosInstance from "../util/axios_instance";
 import URL from "../util/url";
 
 // Cấu hình tên database của bạn
@@ -12,7 +12,7 @@ export const login = async (login, password) => {
 
   try {
     // Sử dụng axiosInstance và URL đã định nghĩa
-    const response = await axios_instance.post(URL.AUTH_LOGIN, {
+    const response = await axiosInstance.post(URL.AUTH_LOGIN, {
       jsonrpc: "2.0",
       params,
     });
@@ -35,7 +35,7 @@ export const login = async (login, password) => {
 export const fetchTasks = async () => {
   try {
     // Sử dụng axiosInstance và URL đã định nghĩa
-    const response = await axios_instance.get(URL.API_TASKS);
+    const response = await axiosInstance.get(URL.API_TASKS);
     return response.data; // Trả về dữ liệu JSON
   } catch (error) {
     console.error("Error fetching tasks:", error);
