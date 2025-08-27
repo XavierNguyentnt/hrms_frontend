@@ -1,32 +1,16 @@
 import React, { useState } from "react";
-import { login } from "../../../services/odooAPI"; // Import hàm login vừa tạo
+import { useAuth } from "../../hooks/useAuth";
 
 function LoginPage({ onLoginSuccess }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null); // State để lưu thông báo lỗi
-  const [isLoading, setIsLoading] = useState(false);
+  const { handleLogin, isLoading, error } = useAuth(); // Sử dụng custom hook
 
   const handleSubmit = async (event) => {
-    // Ngăn trình duyệt reload lại trang khi submit form
     event.preventDefault();
-
-    setError(null); // Xóa lỗi cũ
-    setIsLoading(true);
-
-    try {
-      // Gọi hàm login từ odooApi.js
-      const sessionInfo = await login(email, password);
-
-      // Nếu không có lỗi, gọi hàm callback báo đăng nhập thành công
-      if (sessionInfo) {
-        onLoginSuccess(sessionInfo);
-      }
-    } catch (err) {
-      // Nếu có lỗi, cập nhật state error để hiển thị cho người dùng
-      setError(err.message || "Đã có lỗi xảy ra. Vui lòng thử lại.");
-    } finally {
-      setIsLoading(false);
+    const sessionInfo = await handleLogin(email, password);
+    if (sessionInfo) {
+      onLoginSuccess(sessionInfo);
     }
   };
 
