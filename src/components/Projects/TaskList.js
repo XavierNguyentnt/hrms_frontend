@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 // import { Link } from "react-router-dom"; // Sẽ dùng sau
 import axios from "axios";
-import "./TaskList.css"; // Đổi tên file CSS
+import "./TaskList.css";
 
 function TaskList() {
-  const [tasks, setTasks] = useState([]); // Đổi tên state cho rõ nghĩa
+  const [tasks, setTasks] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -12,6 +12,7 @@ function TaskList() {
       try {
         // BÂY GIỜ CHÚNG TA GỌI API THẬT
         const response = await axios.get("/api/v1/tasks");
+        console.log("Data from API:", response.data);
         setTasks(response.data); // Cập nhật state với dữ liệu từ Odoo
       } catch (err) {
         setError(
